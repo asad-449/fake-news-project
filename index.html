@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+  <meta charset="UTF-8">
+  <title>Fake News Detector</title>
+</head>
+  <title>Fake News Detector</title>
+  <style>
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+    font-family: Arial;
+  }
+
+  textarea {
+    width: 60%;
+    height: 120px;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 12px 25px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #00c6ff;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Fake News Detector</h1>
+
+  <textarea id="newsInput" placeholder="Paste news here..."></textarea><br><br>
+
+  <button onclick="checkNews()">Check</button>
+
+  <h2 id="result"></h2>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
