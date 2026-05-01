@@ -1,62 +1,58 @@
 const express = require("express");
 const cors = require("cors");
-const fetch = require("node-fetch");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.post("/check", async (req, res) => {
-  let text = req.body.text || "";
+app.post("/check", (req, res) => {
+  let text = (req.body.text || "").toLowerCase();
 
-  try {
-    // AI Model (HuggingFace)
-    let response = await fetch(
-      "https://api-inference.huggingface.co/models/mrm8488/bert-tiny-finetuned-fake-news-detection",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ inputs: text })
-      }
-    );
+  let fakeWords = [
+    "shocking", "viral", "exposed", "breaking", "you won't believe"
+  ];
 
-    let data = await response.json();
+  let realWords = [
+    "official", "announced", "government", "report", "confirmed", "study"
+  ];
 
-    // safety check
-    if (!data || !data[0]) {
-      return res.json({
-        result: "Unknown",
-        confidence: 0,
-        explanation: "AI model did not return valid response"
-      });
+  let score = 0;
+  let reasons = [];
+
+  fakeWords.forEach(word => {
+    if (text.includes(word)) {
+      score++;
+      reasons.push("⚠️ Clickbait word: " + word);
     }
+  });
 
-    let label = data[0][0].label;
-    let score = Math.round(data[0][0].score * 100);
+  realWords.forEach(word => {
+    if (text.includes(word)) {
+      score--;
+      reasons.push("✔ Reliable indicator: " + word);
+    }
+  });
 
-    let result = label.toLowerCase().includes("fake") ? "Fake" : "Real";
-
-    let explanation =
-      result === "Fake"
-        ? "AI detected emotional / misleading patterns in the text."
-        : "AI detected factual and structured news-like content.";
-
-    res.json({
-      result,
-      confidence: score,
-      explanation
-    });
-
-  } catch (error) {
-    res.json({
-      result: "Error",
-      confidence: 0,
-      explanation: "AI service failed or rate limited"
-    });
+  if (text.length < 20) {
+    score++;
+    reasons.push("⚠️ Too short text (low reliability)");
   }
+
+  let confidence = Math.min(Math.abs(score) * 25 + 40, 95);
+  let result = score > 0 ? "Fake" : "Real";
+
+  let explanation =
+    result === "Fake"
+      ? "AI detected emotional or misleading patterns in the text."
+      : "AI detected structured and factual news-like content.";
+
+  res.json({
+    result,
+    confidence,
+    explanation,
+    reasons
+  });
 });
 
 const PORT = process.env.PORT || 3000;
