@@ -1,125 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI News Detector Pro+</title>
+  <title>Fake News AI Detector</title>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    :root {
-      --bg1: #050816;
-      --bg2: #0b1220;
-      --glass: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.1);
-      --primary: #7c3aed;
-      --accent: #22c55e;
-      --danger: #ef4444;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
     }
 
     body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
-      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+      background: #0b1220;
       color: white;
-      overflow-x: hidden;
     }
 
-    /* HEADER */
-    .header {
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-weight: 700;
+      color: #60a5fa;
+    }
+
+    /* HERO */
+    .hero {
       text-align: center;
-      padding: 30px 10px;
+      padding: 60px 20px 30px;
     }
 
-    .header h1 {
-      font-size: 28px;
-      margin: 0;
+    .hero h1 {
+      font-size: 34px;
       background: linear-gradient(90deg, #60a5fa, #a78bfa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .header p {
-      opacity: 0.6;
-      margin-top: 8px;
+    .hero p {
+      margin-top: 10px;
+      opacity: 0.7;
     }
 
-    /* LAYOUT */
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* MAIN SECTION */
+    .section {
+      display: flex;
+      justify-content: center;
       gap: 25px;
-      padding: 20px 40px;
+      padding: 30px;
+      flex-wrap: wrap;
     }
 
-    /* GLASS CARD */
     .card {
-      background: var(--glass);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(25px);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      transition: 0.3s;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      width: 380px;
+      backdrop-filter: blur(15px);
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    /* INPUT */
     input {
-      width: 95%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(0,0,0,0.2);
-      color: white;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 12px;
       outline: none;
-      font-size: 14px;
+      background: rgba(0,0,0,0.3);
+      color: white;
     }
 
     button {
       margin-top: 12px;
-      padding: 12px 18px;
+      padding: 12px;
+      width: 100%;
       border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      border-radius: 10px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       color: white;
-      font-weight: 600;
+      font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
     }
 
     button:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
 
-    /* RESULT */
     #result {
       margin-top: 15px;
-      font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     /* DASHBOARD */
     .stat {
-      background: rgba(255,255,255,0.05);
-      padding: 12px;
-      border-radius: 12px;
-      margin: 10px 0;
       display: flex;
       justify-content: space-between;
+      padding: 10px;
+      margin: 8px 0;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
     }
 
-    .fake { color: var(--danger); }
-    .real { color: var(--accent); }
+    .fake { color: #ef4444; }
+    .real { color: #22c55e; }
 
-    /* MOBILE */
-    @media(max-width: 900px){
-      .container{
-        grid-template-columns: 1fr;
-        padding: 10px;
-      }
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+      opacity: 0.5;
+      font-size: 13px;
     }
 
   </style>
@@ -127,46 +130,59 @@
 
 <body>
 
-<div class="header">
-  <h1>🤖 AI Fake News Detector Pro+</h1>
-  <p>Next-gen AI powered fact checking system</p>
+<!-- NAV -->
+<div class="navbar">
+  <div class="logo">🧠 AI News Detector</div>
+  <div>Home | Dashboard | About</div>
 </div>
 
-<div class="container">
+<!-- HERO -->
+<div class="hero">
+  <h1>Detect Fake News with AI</h1>
+  <p>Real-time AI-powered fact checking system</p>
+</div>
+
+<!-- MAIN -->
+<div class="section">
 
   <!-- INPUT CARD -->
   <div class="card">
-    <h3>🔍 Analyze News</h3>
+    <h3>🔍 Check News</h3>
 
     <input type="text" id="newsInput" placeholder="Enter news text...">
 
-    <button onclick="checkNews()">Analyze with AI</button>
+    <button onclick="checkNews()">Analyze</button>
 
     <div id="result"></div>
   </div>
 
-  <!-- DASHBOARD CARD -->
+  <!-- DASHBOARD -->
   <div class="card">
-    <h3>📊 Live Analytics</h3>
+    <h3>📊 Analytics Dashboard</h3>
 
     <div class="stat">
-      <span>Total Checks</span>
+      <span>Total</span>
       <span id="total">0</span>
     </div>
 
     <div class="stat fake">
-      <span>Fake News</span>
+      <span>Fake</span>
       <span id="fake">0</span>
     </div>
 
     <div class="stat real">
-      <span>Real News</span>
+      <span>Real</span>
       <span id="real">0</span>
     </div>
 
     <canvas id="myChart"></canvas>
   </div>
 
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Built with AI • Fake News Detector Pro
 </div>
 
 <script src="script.js"></script>
