@@ -1,14 +1,16 @@
 const express = require("express");
 const cors = require("cors");
+
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use(express.json());
-
+// API Route
 app.post("/check", (req, res) => {
-  let text = req.body.text.toLowerCase();
+  let text = req.body.text || "";
+  text = text.toLowerCase();
 
   let fakeWords = ["shocking", "fake", "secret", "exposed"];
   let realWords = ["official", "report", "confirmed"];
@@ -40,6 +42,9 @@ app.post("/check", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+// PORT FIX (VERY IMPORTANT for Render)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });
