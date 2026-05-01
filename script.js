@@ -24,7 +24,8 @@ async function checkNews() {
 
     resultDiv.innerHTML = `
       <h2>${emoji} ${data.result} News</h2>
-      <p>Confidence: ${data.confidence}%</p>
+      <p><b>Confidence:</b> ${data.confidence}%</p>
+      <p><b>Explanation:</b> ${data.explanation}</p>
       <p><b>Reasons:</b><br>${data.reasons.join("<br>")}</p>
     `;
 
