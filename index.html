@@ -1,54 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<head>
-  <meta charset="UTF-8">
-  <title>Fake News Detector</title>
-</head>
-  <title>Fake News Detector</title>
+  <title>Fake News Detector Pro</title>
   <style>
-  body {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
-    text-align: center;
-    font-family: Arial;
-  }
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
 
-  textarea {
-    width: 60%;
-    height: 120px;
-    padding: 15px;
-    border-radius: 12px;
-    border: none;
-    font-size: 16px;
-  }
+    .box {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 15px;
+      width: 400px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
 
-  button {
-    padding: 12px 25px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 8px;
-    background: #00c6ff;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-  }
+    input {
+      width: 90%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
 
-  #result {
-    margin-top: 20px;
-    font-size: 18px;
-  }
-</style>
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background: #38bdf8;
+      color: black;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .badge {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background: #334155;
+      font-size: 12px;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Fake News Detector</h1>
+  <h1>📰 Fake News Detector Pro</h1>
 
-  <textarea id="newsInput" placeholder="Paste news here..."></textarea><br><br>
+  <div class="box">
+    <input type="text" id="newsInput" placeholder="Enter news text...">
+    <br>
+    <button onclick="checkNews()">Analyze</button>
 
-  <button onclick="checkNews()">Check</button>
-
-  <h2 id="result"></h2>
+    <div id="result"></div>
+    <div class="badge">Powered by AI Logic v1</div>
+  </div>
 
   <script src="script.js"></script>
 
