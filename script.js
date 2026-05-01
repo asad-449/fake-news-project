@@ -3,11 +3,11 @@ async function checkNews() {
   let resultDiv = document.getElementById("result");
 
   if (!text) {
-    resultDiv.innerHTML = "⚠️ Please enter news text";
+    resultDiv.innerHTML = "⚠️ Enter news text";
     return;
   }
 
-  resultDiv.innerHTML = "🔍 Analyzing...";
+  resultDiv.innerHTML = "🤖 AI Analyzing...";
 
   try {
     let response = await fetch("https://fake-news-project-c0q8.onrender.com/check", {
@@ -23,10 +23,9 @@ async function checkNews() {
     let emoji = data.result === "Fake" ? "❌" : "✅";
 
     resultDiv.innerHTML = `
-      <h2>${emoji} ${data.result} News</h2>
+      <h2>${emoji} ${data.result} News (AI)</h2>
       <p><b>Confidence:</b> ${data.confidence}%</p>
-      <p><b>Explanation:</b> ${data.explanation}</p>
-      <p><b>Reasons:</b><br>${data.reasons.join("<br>")}</p>
+      <p><b>AI Explanation:</b> ${data.explanation}</p>
     `;
 
   } catch (error) {
