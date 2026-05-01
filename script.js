@@ -2,30 +2,33 @@ async function checkNews() {
   let text = document.getElementById("newsInput").value;
   let resultDiv = document.getElementById("result");
 
-  resultDiv.innerText = "Analyzing...";
-  resultDiv.style.color = "yellow";
+  if (!text) {
+    resultDiv.innerHTML = "⚠️ Please enter news text";
+    return;
+  }
+
+  resultDiv.innerHTML = "🔍 Analyzing...";
 
   try {
-    let response = await fetch("http://localhost:3000/check", {
+    let response = await fetch("https://fake-news-project-c0q8.onrender.com/check", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ text: text })
+      body: JSON.stringify({ text })
     });
 
     let data = await response.json();
 
-    if (data.result === "Fake") {
-      resultDiv.innerHTML = `❌ Fake News (${data.confidence}%)<br><br>${data.reasons.join("<br>")}`;
-      resultDiv.style.color = "red";
-    } else {
-      resultDiv.innerHTML = `✅ Real News (${data.confidence}%)<br><br>${data.reasons.join("<br>")}`;
-      resultDiv.style.color = "lightgreen";
-    }
+    let emoji = data.result === "Fake" ? "❌" : "✅";
+
+    resultDiv.innerHTML = `
+      <h2>${emoji} ${data.result} News</h2>
+      <p>Confidence: ${data.confidence}%</p>
+      <p><b>Reasons:</b><br>${data.reasons.join("<br>")}</p>
+    `;
 
   } catch (error) {
-    resultDiv.innerText = "Error connecting to server!";
-    resultDiv.style.color = "orange";
+    resultDiv.innerHTML = "❌ Server Error";
   }
 }
