@@ -1,191 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Fake News AI Detector</title>
+<div class="card">
+  <h3>📊 Live Insights</h3>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div style="display:grid; gap:10px; margin-top:15px;">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
-    }
+    <div style="display:flex; justify-content:space-between; padding:12px; border-radius:12px; background:rgba(255,255,255,0.05);">
+      <span>🧾 Total Checks</span>
+      <b id="total">0</b>
+    </div>
 
-    body {
-      background: #0b1220;
-      color: white;
-    }
+    <div style="display:flex; justify-content:space-between; padding:12px; border-radius:12px; background:rgba(239,68,68,0.1);">
+      <span>❌ Fake News</span>
+      <b id="fake" style="color:#ef4444;">0</b>
+    </div>
 
-    /* NAVBAR */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      padding: 18px 40px;
-      background: rgba(255,255,255,0.03);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      position: sticky;
-      top: 0;
-      backdrop-filter: blur(10px);
-    }
+    <div style="display:flex; justify-content:space-between; padding:12px; border-radius:12px; background:rgba(34,197,94,0.1);">
+      <span>✅ Real News</span>
+      <b id="real" style="color:#22c55e;">0</b>
+    </div>
 
-    .logo {
-      font-weight: 700;
-      color: #60a5fa;
-    }
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 60px 20px 30px;
-    }
-
-    .hero h1 {
-      font-size: 34px;
-      background: linear-gradient(90deg, #60a5fa, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      margin-top: 10px;
-      opacity: 0.7;
-    }
-
-    /* MAIN SECTION */
-    .section {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      padding: 30px;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 20px;
-      width: 380px;
-      backdrop-filter: blur(15px);
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 12px;
-      outline: none;
-      background: rgba(0,0,0,0.3);
-      color: white;
-    }
-
-    button {
-      margin-top: 12px;
-      padding: 12px;
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      transform: scale(1.02);
-    }
-
-    #result {
-      margin-top: 15px;
-      line-height: 1.5;
-    }
-
-    /* DASHBOARD */
-    .stat {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-      margin: 8px 0;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-    }
-
-    .fake { color: #ef4444; }
-    .real { color: #22c55e; }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 30px;
-      opacity: 0.5;
-      font-size: 13px;
-    }
-
-  </style>
-</head>
-
-<body>
-
-<!-- NAV -->
-<div class="navbar">
-  <div class="logo">🧠 AI News Detector</div>
-  <div>Home | Dashboard | About</div>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <h1>Detect Fake News with AI</h1>
-  <p>Real-time AI-powered fact checking system</p>
-</div>
-
-<!-- MAIN -->
-<div class="section">
-
-  <!-- INPUT CARD -->
-  <div class="card">
-    <h3>🔍 Check News</h3>
-
-    <input type="text" id="newsInput" placeholder="Enter news text...">
-
-    <button onclick="checkNews()">Analyze</button>
-
-    <div id="result"></div>
   </div>
 
-  <!-- DASHBOARD -->
-  <div class="card">
-    <h3>📊 Analytics Dashboard</h3>
-
-    <div class="stat">
-      <span>Total</span>
-      <span id="total">0</span>
-    </div>
-
-    <div class="stat fake">
-      <span>Fake</span>
-      <span id="fake">0</span>
-    </div>
-
-    <div class="stat real">
-      <span>Real</span>
-      <span id="real">0</span>
-    </div>
-
+  <div style="margin-top:20px;">
     <canvas id="myChart"></canvas>
   </div>
 
 </div>
-
-<!-- FOOTER -->
-<div class="footer">
-  Built with AI • Fake News Detector Pro
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
