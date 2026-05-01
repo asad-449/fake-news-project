@@ -38,7 +38,7 @@
     /* HERO */
     .hero {
       text-align: center;
-      padding: 50px 20px 20px;
+      padding: 60px 20px 20px;
     }
 
     .hero h1 {
@@ -103,16 +103,6 @@
       line-height: 1.5;
     }
 
-    /* DASHBOARD */
-    .stat {
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.04);
-    }
-
     .fake { color: #ef4444; }
     .real { color: #22c55e; }
 
@@ -132,7 +122,7 @@
 <!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">🧠 AI News Detector</div>
-  <div>Dashboard</div>
+  <div>Home</div>
 </div>
 
 <!-- HERO -->
@@ -155,24 +145,13 @@
     <div id="result"></div>
   </div>
 
-  <!-- DASHBOARD -->
+  <!-- RESULT CARD (optional chart kept minimal) -->
   <div class="card">
-    <h3>📊 Analytics Overview</h3>
+    <h3>📊 Live Result Tracker</h3>
 
-    <div class="stat">
-      <span>Total Checks</span>
-      <b id="total">0</b>
-    </div>
-
-    <div class="stat fake">
-      <span>Fake News</span>
-      <b id="fake">0</b>
-    </div>
-
-    <div class="stat real">
-      <span>Real News</span>
-      <b id="real">0</b>
-    </div>
+    <p style="opacity:0.7; margin-top:10px;">
+      Real-time AI analysis will appear here with confidence score.
+    </p>
 
     <canvas id="myChart"></canvas>
   </div>
