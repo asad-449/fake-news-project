@@ -3,8 +3,6 @@
 <head>
   <title>AI Fake News Detector</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <style>
     * {
       margin: 0;
@@ -14,8 +12,9 @@
     }
 
     body {
-      background: #0b1220;
+      background: radial-gradient(circle at top, #0b1220, #050816);
       color: white;
+      min-height: 100vh;
     }
 
     /* NAV */
@@ -25,8 +24,6 @@
       padding: 18px 40px;
       background: rgba(255,255,255,0.03);
       border-bottom: 1px solid rgba(255,255,255,0.08);
-      position: sticky;
-      top: 0;
       backdrop-filter: blur(10px);
     }
 
@@ -38,43 +35,37 @@
     /* HERO */
     .hero {
       text-align: center;
-      padding: 60px 20px 20px;
+      padding: 70px 20px 30px;
     }
 
     .hero h1 {
-      font-size: 32px;
+      font-size: 34px;
       background: linear-gradient(90deg, #60a5fa, #a78bfa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      margin-top: 8px;
+      margin-top: 10px;
       opacity: 0.7;
     }
 
-    /* MAIN */
-    .section {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      padding: 30px;
-      flex-wrap: wrap;
-    }
-
+    /* CARD */
     .card {
+      width: 420px;
+      margin: auto;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 20px;
-      width: 380px;
-      backdrop-filter: blur(15px);
+      border-radius: 18px;
+      padding: 22px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
 
     input {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       border: none;
       margin-top: 12px;
       outline: none;
@@ -83,24 +74,26 @@
     }
 
     button {
-      margin-top: 12px;
+      margin-top: 14px;
       padding: 12px;
       width: 100%;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       color: white;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.3s;
     }
 
     button:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
     }
 
     #result {
-      margin-top: 15px;
-      line-height: 1.5;
+      margin-top: 18px;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
     .fake { color: #ef4444; }
@@ -109,9 +102,10 @@
     /* FOOTER */
     .footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       opacity: 0.5;
       font-size: 13px;
+      margin-top: 40px;
     }
 
   </style>
@@ -119,48 +113,34 @@
 
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <div class="navbar">
   <div class="logo">🧠 AI News Detector</div>
-  <div>Home</div>
+  <div>AI Powered</div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
   <h1>Detect Fake News with AI</h1>
-  <p>Real-time AI-powered fact checking system</p>
+  <p>Smart real-time fact-checking engine powered by AI</p>
 </div>
 
-<!-- MAIN -->
-<div class="section">
+<!-- MAIN CARD -->
+<div class="card">
 
-  <!-- INPUT -->
-  <div class="card">
-    <h3>🔍 Analyze News</h3>
+  <h3>🔍 Analyze News</h3>
 
-    <input type="text" id="newsInput" placeholder="Paste news text here...">
+  <input type="text" id="newsInput" placeholder="Paste news text here...">
 
-    <button onclick="checkNews()">Analyze</button>
+  <button onclick="checkNews()">Analyze with AI</button>
 
-    <div id="result"></div>
-  </div>
-
-  <!-- RESULT CARD (optional chart kept minimal) -->
-  <div class="card">
-    <h3>📊 Live Result Tracker</h3>
-
-    <p style="opacity:0.7; margin-top:10px;">
-      Real-time AI analysis will appear here with confidence score.
-    </p>
-
-    <canvas id="myChart"></canvas>
-  </div>
+  <div id="result"></div>
 
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
-  Built with AI • Fake News Detector Pro
+  Built with AI • Fake News Detection System
 </div>
 
 <script src="script.js"></script>
