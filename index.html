@@ -1,100 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Fake News Detector Pro</title>
+  <title>AI News Detector Pro</title>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     body {
-      font-family: Arial;
-      background: #0f172a;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+      background: radial-gradient(circle at top, #0f172a, #020617);
       color: white;
       text-align: center;
-      padding: 25px;
+      padding: 30px;
     }
 
     h1 {
-      margin-bottom: 20px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
     }
 
     .container {
       display: flex;
-      gap: 20px;
       justify-content: center;
+      gap: 25px;
       flex-wrap: wrap;
     }
 
-    .box {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 15px;
-      width: 350px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 25px;
+      width: 360px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      transition: 0.3s;
+    }
+
+    .glass:hover {
+      transform: translateY(-5px);
     }
 
     input {
       width: 90%;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 14px;
+      border-radius: 12px;
       border: none;
-      margin-top: 10px;
+      outline: none;
+      margin-top: 15px;
+      font-size: 14px;
     }
 
     button {
-      margin-top: 12px;
-      padding: 10px 20px;
+      margin-top: 15px;
+      padding: 12px 20px;
       border: none;
-      background: #38bdf8;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: white;
+      font-weight: 600;
       cursor: pointer;
+      transition: 0.3s;
     }
 
     button:hover {
-      background: #0ea5e9;
+      transform: scale(1.05);
     }
 
     #result {
-      margin-top: 15px;
+      margin-top: 20px;
+      font-size: 15px;
+      line-height: 1.5;
     }
 
     .stat {
-      background: #334155;
-      padding: 10px;
+      background: rgba(255,255,255,0.08);
+      padding: 12px;
+      border-radius: 12px;
       margin: 10px 0;
-      border-radius: 8px;
+      font-size: 14px;
     }
 
-    .fake { color: #ef4444; }
-    .real { color: #22c55e; }
+    canvas {
+      margin-top: 15px;
+    }
 
+    .title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      opacity: 0.9;
+    }
   </style>
 </head>
 
 <body>
 
-<h1>🤖 AI Fake News Detector Pro</h1>
+<h1>🍎 AI News Detector Pro</h1>
 
 <div class="container">
 
-  <!-- INPUT -->
-  <div class="box">
-    <h3>Analyze News</h3>
+  <!-- INPUT CARD -->
+  <div class="glass">
+    <div class="title">Analyze News</div>
+
     <input type="text" id="newsInput" placeholder="Enter news text...">
+
     <br>
     <button onclick="checkNews()">Analyze</button>
 
     <div id="result"></div>
   </div>
 
-  <!-- DASHBOARD -->
-  <div class="box">
-    <h3>📊 Dashboard</h3>
+  <!-- DASHBOARD CARD -->
+  <div class="glass">
+    <div class="title">📊 Live Dashboard</div>
 
     <div class="stat">Total: <span id="total">0</span></div>
-    <div class="stat fake">Fake: <span id="fake">0</span></div>
-    <div class="stat real">Real: <span id="real">0</span></div>
+    <div class="stat">❌ Fake: <span id="fake">0</span></div>
+    <div class="stat">✅ Real: <span id="real">0</span></div>
 
     <canvas id="myChart"></canvas>
   </div>
