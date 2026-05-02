@@ -1,42 +1,14 @@
-function addMessage(text, type) {
-  let chat = document.getElementById("chat");
-
-  let div = document.createElement("div");
-  div.className = "msg " + type;
-  div.innerHTML = text;
-
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-
-  return div;
-}
-
-// 🤖 realistic typing
-function typingAnimation() {
-  let msg = addMessage("🤖 Thinking", "bot");
-
-  let dots = 0;
-  let interval = setInterval(() => {
-    dots = (dots + 1) % 4;
-    msg.innerHTML = "🤖 Thinking" + ".".repeat(dots);
-  }, 400);
-
-  return { msg, interval };
-}
-
 async function checkNews() {
-  let input = document.getElementById("newsInput");
-  let text = input.value;
+  let text = document.getElementById("newsInput").value;
+  let resultDiv = document.getElementById("result");
 
   if (!text) return;
 
-  addMessage(text, "user");
-  input.value = "";
-
-  let { msg, interval } = typingAnimation();
+  resultDiv.innerHTML = "🤖 Analyzing...";
+  resultDiv.style.color = "yellow";
 
   try {
-    let res = await fetch("https://fake-news-project-c0q8.onrender.com/check", {
+    let response = await fetch("https://fake-news-project-c0q8.onrender.com/check", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -44,47 +16,43 @@ async function checkNews() {
       body: JSON.stringify({ text })
     });
 
-    let data = await res.json();
+    let data = await response.json();
 
-    clearInterval(interval);
-
-    // 🎯 result badge
-    msg.innerHTML =
+    // 🎯 result
+    resultDiv.innerHTML =
       data.result === "Fake"
         ? `❌ Fake News (${data.confidence}%)`
         : `✅ Real News (${data.confidence}%)`;
 
     // 📊 confidence bar
-    let bar = document.createElement("div");
-    bar.style.marginTop = "6px";
-    bar.innerHTML = `
-      <div style="height:6px;background:#1e293b;border-radius:6px;">
+    resultDiv.innerHTML += `
+      <div style="margin-top:10px;height:6px;background:#1e293b;border-radius:6px;">
         <div style="width:${data.confidence}%;height:6px;background:${
           data.result === "Fake" ? "#ef4444" : "#22c55e"
         };border-radius:6px;"></div>
       </div>
     `;
-    msg.appendChild(bar);
 
-    // 🤖 explanation delayed (real AI feel)
+    // 🤖 explanation
     setTimeout(() => {
-      addMessage("🤖 " + data.explanation, "bot");
-    }, 1200);
+      resultDiv.innerHTML += `<br><br>🤖 ${data.explanation}`;
+    }, 800);
 
   } catch (err) {
-    clearInterval(interval);
-    msg.innerHTML = "❌ Server error";
+    resultDiv.innerHTML = "❌ Server error";
+    resultDiv.style.color = "orange";
   }
 }
 
-// 🎤 VOICE (auto-send)
+
+// 🎤 VOICE INPUT (website version)
 function startVoice() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
   recognition.lang = "en-US";
 
   recognition.onstart = () => {
-    addMessage("🎤 Listening...", "bot");
+    document.getElementById("result").innerHTML = "🎤 Listening...";
   };
 
   recognition.onresult = (event) => {
@@ -92,14 +60,12 @@ function startVoice() {
 
     document.getElementById("newsInput").value = speechText;
 
-    // auto send
-    setTimeout(() => {
-      checkNews();
-    }, 500);
+    // auto analyze
+    checkNews();
   };
 
   recognition.onerror = () => {
-    addMessage("❌ Voice error", "bot");
+    document.getElementById("result").innerHTML = "❌ Voice error";
   };
 
   recognition.start();
