@@ -18,13 +18,13 @@ async function checkNews() {
 
     let data = await response.json();
 
-    // 🎯 result
+    // RESULT
     resultDiv.innerHTML =
       data.result === "Fake"
         ? `❌ Fake News (${data.confidence}%)`
         : `✅ Real News (${data.confidence}%)`;
 
-    // 📊 confidence bar
+    // PROGRESS BAR
     resultDiv.innerHTML += `
       <div style="margin-top:10px;height:6px;background:#1e293b;border-radius:6px;">
         <div style="width:${data.confidence}%;height:6px;background:${
@@ -33,19 +33,31 @@ async function checkNews() {
       </div>
     `;
 
-    // 🤖 explanation
+    // EXPLANATION + REASONS
     setTimeout(() => {
       resultDiv.innerHTML += `<br><br>🤖 ${data.explanation}`;
+
+      if (data.reasons && data.reasons.length > 0) {
+        let reasonsHTML = `<div class="reasons-container">`;
+
+        data.reasons.forEach(reason => {
+          reasonsHTML += `<div class="reason-card">⚠️ ${reason}</div>`;
+        });
+
+        reasonsHTML += `</div>`;
+
+        resultDiv.innerHTML += reasonsHTML;
+      }
+
     }, 800);
 
   } catch (err) {
     resultDiv.innerHTML = "❌ Server error";
-    resultDiv.style.color = "orange";
   }
 }
 
 
-// 🎤 VOICE INPUT (website version)
+// 🎤 VOICE
 function startVoice() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
@@ -57,10 +69,7 @@ function startVoice() {
 
   recognition.onresult = (event) => {
     let speechText = event.results[0][0].transcript;
-
     document.getElementById("newsInput").value = speechText;
-
-    // auto analyze
     checkNews();
   };
 

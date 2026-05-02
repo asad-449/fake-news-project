@@ -18,18 +18,11 @@
       padding: 16px 40px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.02);
-      position: sticky;
-      top: 0;
-      backdrop-filter: blur(10px);
     }
 
     .logo {
       font-weight: 700;
       color: #6366f1;
-    }
-
-    .nav-links {
-      opacity: 0.7;
     }
 
     /* HERO */
@@ -46,11 +39,10 @@
     }
 
     .hero p {
-      margin-top: 10px;
       opacity: 0.7;
     }
 
-    /* TOOL BOX */
+    /* TOOL */
     .tool-box {
       max-width: 600px;
       margin: auto;
@@ -59,7 +51,6 @@
       backdrop-filter: blur(20px);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
 
     textarea {
@@ -88,17 +79,27 @@
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: white;
       cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
     }
 
     #result {
       margin-top: 15px;
       line-height: 1.6;
-      font-size: 15px;
+    }
+
+    /* 🔥 Reasons UI */
+    .reasons-container {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .reason-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
     }
 
     /* FEATURES */
@@ -108,7 +109,6 @@
       gap: 20px;
       margin: 60px auto;
       flex-wrap: wrap;
-      max-width: 1000px;
     }
 
     .feature {
@@ -116,15 +116,12 @@
       padding: 20px;
       border-radius: 14px;
       width: 260px;
-      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    /* FOOTER */
     .footer {
       text-align: center;
       padding: 30px;
       opacity: 0.5;
-      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
   </style>
@@ -132,19 +129,15 @@
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">🧠 AI Detector</div>
-  <div class="nav-links">Home • Features • AI</div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <h1>Detect Fake News with AI</h1>
-  <p>Instantly analyze news and verify authenticity using AI</p>
+  <p>Analyze news instantly using AI</p>
 </div>
 
-<!-- TOOL -->
 <div class="tool-box">
 
   <textarea id="newsInput" placeholder="Paste news text here..."></textarea>
@@ -158,30 +151,13 @@
 
 </div>
 
-<!-- FEATURES -->
 <div class="features">
-
-  <div class="feature">
-    ⚡ Instant Analysis  
-    <p style="opacity:0.7;">Fast detection using smart logic</p>
-  </div>
-
-  <div class="feature">
-    🤖 AI Explanation  
-    <p style="opacity:0.7;">Understand why news is fake or real</p>
-  </div>
-
-  <div class="feature">
-    🎤 Voice Input  
-    <p style="opacity:0.7;">Speak and analyze news instantly</p>
-  </div>
-
+  <div class="feature">⚡ Fast Detection</div>
+  <div class="feature">🤖 AI Explanation</div>
+  <div class="feature">🎤 Voice Input</div>
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-  Built with AI • Fake News Detection System
-</div>
+<div class="footer">Built with AI</div>
 
 <script src="script.js"></script>
 
