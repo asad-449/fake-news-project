@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<button onclick="startVoice()">💭</button>
 <head>
   <title>AI News Detector</title>
 
@@ -16,7 +15,7 @@
       align-items: center;
     }
 
-    /* GLASS CONTAINER */
+    /* GLASS UI */
     .container {
       width: 420px;
       height: 600px;
@@ -39,7 +38,7 @@
       background: rgba(255,255,255,0.03);
     }
 
-    /* CHAT AREA */
+    /* CHAT */
     .chat {
       flex: 1;
       padding: 15px;
@@ -51,6 +50,7 @@
       padding: 12px;
       margin: 8px 0;
       border-radius: 12px;
+      transition: all 0.3s ease;
       animation: fadeIn 0.3s ease;
     }
 
@@ -68,7 +68,7 @@
       to {opacity: 1; transform: translateY(0);}
     }
 
-    /* INPUT AREA */
+    /* INPUT */
     .input-box {
       display: flex;
       padding: 12px;
@@ -115,8 +115,9 @@
   <div class="chat" id="chat"></div>
 
   <div class="input-box">
-    <input id="newsInput" placeholder="Type or paste news...">
+    <input id="newsInput" placeholder="Type or speak news...">
     <button onclick="checkNews()">Send</button>
+    <button onclick="startVoice()">🎤</button>
   </div>
 
 </div>

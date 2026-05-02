@@ -11,17 +11,17 @@ function addMessage(text, type) {
   return div;
 }
 
-// ✨ Typing animation
-function showTyping() {
-  let typing = addMessage("🤖 Typing...", "bot");
+// 🤖 realistic typing
+function typingAnimation() {
+  let msg = addMessage("🤖 Thinking", "bot");
 
   let dots = 0;
   let interval = setInterval(() => {
     dots = (dots + 1) % 4;
-    typing.innerHTML = "🤖 Typing" + ".".repeat(dots);
+    msg.innerHTML = "🤖 Thinking" + ".".repeat(dots);
   }, 400);
 
-  return { typing, interval };
+  return { msg, interval };
 }
 
 async function checkNews() {
@@ -33,11 +33,10 @@ async function checkNews() {
   addMessage(text, "user");
   input.value = "";
 
-  // show typing
-  let { typing, interval } = showTyping();
+  let { msg, interval } = typingAnimation();
 
   try {
-    let response = await fetch("https://fake-news-project-c0q8.onrender.com/check", {
+    let res = await fetch("https://fake-news-project-c0q8.onrender.com/check", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -45,27 +44,40 @@ async function checkNews() {
       body: JSON.stringify({ text })
     });
 
-    let data = await response.json();
+    let data = await res.json();
 
     clearInterval(interval);
 
-    typing.innerHTML =
-      (data.result === "Fake"
-        ? `❌ Fake (${data.confidence}%)`
-        : `✅ Real (${data.confidence}%)`);
+    // 🎯 result badge
+    msg.innerHTML =
+      data.result === "Fake"
+        ? `❌ Fake News (${data.confidence}%)`
+        : `✅ Real News (${data.confidence}%)`;
 
-    // explanation after delay
+    // 📊 confidence bar
+    let bar = document.createElement("div");
+    bar.style.marginTop = "6px";
+    bar.innerHTML = `
+      <div style="height:6px;background:#1e293b;border-radius:6px;">
+        <div style="width:${data.confidence}%;height:6px;background:${
+          data.result === "Fake" ? "#ef4444" : "#22c55e"
+        };border-radius:6px;"></div>
+      </div>
+    `;
+    msg.appendChild(bar);
+
+    // 🤖 explanation delayed (real AI feel)
     setTimeout(() => {
       addMessage("🤖 " + data.explanation, "bot");
-    }, 800);
+    }, 1200);
 
   } catch (err) {
     clearInterval(interval);
-    typing.innerHTML = "❌ Server error";
+    msg.innerHTML = "❌ Server error";
   }
 }
 
-// 🎤 VOICE INPUT
+// 🎤 VOICE (auto-send)
 function startVoice() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
@@ -77,7 +89,13 @@ function startVoice() {
 
   recognition.onresult = (event) => {
     let speechText = event.results[0][0].transcript;
+
     document.getElementById("newsInput").value = speechText;
+
+    // auto send
+    setTimeout(() => {
+      checkNews();
+    }, 500);
   };
 
   recognition.onerror = () => {
