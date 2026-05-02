@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI News Detector</title>
+  <title>AI Fake News Detector</title>
 
   <style>
     body {
@@ -9,116 +9,82 @@
       font-family: -apple-system, BlinkMacSystemFont;
       background: #020617;
       color: white;
-      height: 100vh;
+    }
+
+    /* NAVBAR */
+    .navbar {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    /* 🌌 BACKGROUND GLOW */
-    body::before {
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, #6366f1, transparent 70%);
-      filter: blur(120px);
-      animation: move 8s infinite alternate;
-    }
-
-    @keyframes move {
-      from { transform: translate(-100px, -100px); }
-      to { transform: translate(100px, 100px); }
-    }
-
-    /* 🧊 GLASS CONTAINER */
-    .container {
-      width: 420px;
-      height: 620px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(30px);
-      border-radius: 22px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.8);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* HEADER */
-    .header {
-      padding: 16px;
-      text-align: center;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      justify-content: space-between;
+      padding: 16px 40px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.02);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
     }
 
-    /* CHAT */
-    .chat {
-      flex: 1;
-      padding: 16px;
-      overflow-y: auto;
+    .logo {
+      font-weight: 700;
+      color: #6366f1;
     }
 
-    .msg {
-      max-width: 75%;
-      padding: 12px 14px;
-      margin: 8px 0;
-      border-radius: 14px;
-      animation: fadeIn 0.3s ease;
+    .nav-links {
+      opacity: 0.7;
     }
 
-    .user {
-      background: linear-gradient(135deg, #3b82f6, #6366f1);
-      margin-left: auto;
-      box-shadow: 0 8px 20px rgba(99,102,241,0.4);
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
     }
 
-    .bot {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+    .hero h1 {
+      font-size: 36px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
+    .hero p {
+      margin-top: 10px;
+      opacity: 0.7;
     }
 
-    /* INPUT */
-    .input-box {
-      display: flex;
+    /* TOOL BOX */
+    .tool-box {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
       padding: 12px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.02);
-    }
-
-    input {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px;
+      border-radius: 10px;
       border: none;
-      outline: none;
       background: rgba(0,0,0,0.4);
       color: white;
-      transition: 0.3s;
+      outline: none;
+      resize: none;
     }
 
-    /* ✨ PREMIUM INPUT GLOW */
-    input:focus {
-      box-shadow: 0 0 0 2px rgba(99,102,241,0.6);
-      background: rgba(0,0,0,0.6);
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
     }
 
     button {
-      margin-left: 8px;
-      padding: 12px 14px;
+      flex: 1;
+      padding: 12px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: white;
       cursor: pointer;
@@ -126,8 +92,39 @@
     }
 
     button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 20px rgba(139,92,246,0.5);
+      transform: scale(1.05);
+    }
+
+    #result {
+      margin-top: 15px;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* FEATURES */
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 60px auto;
+      flex-wrap: wrap;
+      max-width: 1000px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.04);
+      padding: 20px;
+      border-radius: 14px;
+      width: 260px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      opacity: 0.5;
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
   </style>
@@ -135,20 +132,55 @@
 
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">🧠 AI Detector</div>
+  <div class="nav-links">Home • Features • AI</div>
+</div>
 
-  <div class="header">
-    🧠 AI News Detector
+<!-- HERO -->
+<div class="hero">
+  <h1>Detect Fake News with AI</h1>
+  <p>Instantly analyze news and verify authenticity using AI</p>
+</div>
+
+<!-- TOOL -->
+<div class="tool-box">
+
+  <textarea id="newsInput" placeholder="Paste news text here..."></textarea>
+
+  <div class="buttons">
+    <button onclick="checkNews()">Analyze</button>
+    <button onclick="startVoice()">🎤 Voice</button>
   </div>
 
-  <div class="chat" id="chat"></div>
+  <div id="result"></div>
 
-  <div class="input-box">
-    <input id="newsInput" placeholder="Type or speak news...">
-    <button onclick="checkNews()">➤</button>
-    <button onclick="startVoice()">🎤</button>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+
+  <div class="feature">
+    ⚡ Instant Analysis  
+    <p style="opacity:0.7;">Fast detection using smart logic</p>
   </div>
 
+  <div class="feature">
+    🤖 AI Explanation  
+    <p style="opacity:0.7;">Understand why news is fake or real</p>
+  </div>
+
+  <div class="feature">
+    🎤 Voice Input  
+    <p style="opacity:0.7;">Speak and analyze news instantly</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Built with AI • Fake News Detection System
 </div>
 
 <script src="script.js"></script>
