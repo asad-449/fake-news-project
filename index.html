@@ -7,60 +7,81 @@
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont;
-      background: radial-gradient(circle at top, #0f172a, #020617);
+      background: #020617;
       color: white;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
     }
 
-    /* GLASS UI */
+    /* 🌌 BACKGROUND GLOW */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #6366f1, transparent 70%);
+      filter: blur(120px);
+      animation: move 8s infinite alternate;
+    }
+
+    @keyframes move {
+      from { transform: translate(-100px, -100px); }
+      to { transform: translate(100px, 100px); }
+    }
+
+    /* 🧊 GLASS CONTAINER */
     .container {
       width: 420px;
-      height: 600px;
+      height: 620px;
       background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(25px);
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(30px);
+      border-radius: 22px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.8);
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
+      z-index: 2;
     }
 
     /* HEADER */
     .header {
-      padding: 15px;
+      padding: 16px;
       text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
       font-weight: 600;
-      background: rgba(255,255,255,0.03);
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
     }
 
     /* CHAT */
     .chat {
       flex: 1;
-      padding: 15px;
+      padding: 16px;
       overflow-y: auto;
     }
 
     .msg {
       max-width: 75%;
-      padding: 12px;
+      padding: 12px 14px;
       margin: 8px 0;
-      border-radius: 12px;
-      transition: all 0.3s ease;
+      border-radius: 14px;
       animation: fadeIn 0.3s ease;
     }
 
     .user {
       background: linear-gradient(135deg, #3b82f6, #6366f1);
       margin-left: auto;
+      box-shadow: 0 8px 20px rgba(99,102,241,0.4);
     }
 
     .bot {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     @keyframes fadeIn {
@@ -72,25 +93,32 @@
     .input-box {
       display: flex;
       padding: 12px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
     }
 
     input {
       flex: 1;
       padding: 12px;
+      border-radius: 12px;
       border: none;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.3);
-      color: white;
       outline: none;
+      background: rgba(0,0,0,0.4);
+      color: white;
+      transition: 0.3s;
+    }
+
+    /* ✨ PREMIUM INPUT GLOW */
+    input:focus {
+      box-shadow: 0 0 0 2px rgba(99,102,241,0.6);
+      background: rgba(0,0,0,0.6);
     }
 
     button {
-      margin-left: 10px;
-      padding: 12px 16px;
+      margin-left: 8px;
+      padding: 12px 14px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: white;
       cursor: pointer;
@@ -98,7 +126,8 @@
     }
 
     button:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(139,92,246,0.5);
     }
 
   </style>
@@ -116,7 +145,7 @@
 
   <div class="input-box">
     <input id="newsInput" placeholder="Type or speak news...">
-    <button onclick="checkNews()">Send</button>
+    <button onclick="checkNews()">➤</button>
     <button onclick="startVoice()">🎤</button>
   </div>
 
