@@ -1,146 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Fake News Detector</title>
+  <title>AI News Detector</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
-    }
-
     body {
-      background: radial-gradient(circle at top, #0b1220, #050816);
-      color: white;
-      min-height: 100vh;
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont;
+      background:#0b1220;
+      color:white;
+      display:flex;
+      flex-direction:column;
+      height:100vh;
     }
 
-    /* NAV */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      padding: 18px 40px;
-      background: rgba(255,255,255,0.03);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
+    .header {
+      padding:15px;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      font-weight:600;
     }
 
-    .logo {
-      font-weight: 700;
-      color: #60a5fa;
+    .chat {
+      flex:1;
+      padding:20px;
+      overflow-y:auto;
     }
 
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 70px 20px 30px;
+    .msg {
+      max-width:70%;
+      padding:12px;
+      margin:10px 0;
+      border-radius:12px;
     }
 
-    .hero h1 {
-      font-size: 34px;
-      background: linear-gradient(90deg, #60a5fa, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .user {
+      background:#2563eb;
+      margin-left:auto;
     }
 
-    .hero p {
-      margin-top: 10px;
-      opacity: 0.7;
+    .bot {
+      background:rgba(255,255,255,0.08);
     }
 
-    /* CARD */
-    .card {
-      width: 420px;
-      margin: auto;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 22px;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    .input-box {
+      display:flex;
+      padding:15px;
+      border-top:1px solid rgba(255,255,255,0.1);
     }
 
     input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
-      margin-top: 12px;
-      outline: none;
-      background: rgba(0,0,0,0.3);
-      color: white;
+      flex:1;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      background:#1e293b;
+      color:white;
     }
 
     button {
-      margin-top: 14px;
-      padding: 12px;
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
+      margin-left:10px;
+      padding:12px 18px;
+      border:none;
+      border-radius:10px;
+      background:#6366f1;
+      color:white;
+      cursor:pointer;
     }
-
-    button:hover {
-      transform: scale(1.03);
-    }
-
-    #result {
-      margin-top: 18px;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .fake { color: #ef4444; }
-    .real { color: #22c55e; }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      padding: 30px;
-      opacity: 0.5;
-      font-size: 13px;
-      margin-top: 40px;
-    }
-
   </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<div class="navbar">
-  <div class="logo">🧠 AI News Detector</div>
-  <div>AI Powered</div>
-</div>
+<div class="header">🧠 AI Fake News Detector</div>
 
-<!-- HERO -->
-<div class="hero">
-  <h1>Detect Fake News with AI</h1>
-  <p>Smart real-time fact-checking engine powered by AI</p>
-</div>
+<div class="chat" id="chat"></div>
 
-<!-- MAIN CARD -->
-<div class="card">
-
-  <h3>🔍 Analyze News</h3>
-
-  <input type="text" id="newsInput" placeholder="Paste news text here...">
-
-  <button onclick="checkNews()">Analyze with AI</button>
-
-  <div id="result"></div>
-
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  Built with AI • Fake News Detection System
+<div class="input-box">
+  <input id="newsInput" placeholder="Type news here...">
+  <button onclick="checkNews()">Send</button>
 </div>
 
 <script src="script.js"></script>
